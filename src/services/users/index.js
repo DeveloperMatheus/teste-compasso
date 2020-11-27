@@ -5,7 +5,7 @@ export default {
     return axios
       .get(`/users/${username}`)
       .then(res => {
-        return Promise.resolve(res.data);
+        return Promise.resolve(res);
       })
       .catch(err => {
         return Promise.reject(err.response.data);
