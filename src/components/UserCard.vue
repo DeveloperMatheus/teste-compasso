@@ -1,15 +1,17 @@
 <template>
   <v-card>
-    <v-img :src="userProp.avatar_url"></v-img>
-    <v-card-title class="justify-center" v-if="userProp.name">
-      Nome: {{ userProp.name }}
-    </v-card-title>
-    <v-card-title class="justify-center" v-if="userProp.login">
-      Usuário: {{ userProp.login }}
-    </v-card-title>
-    <v-card-subtitle class="text-center" v-if="userProp.name">
-      Criado em: {{ userProp.created_at | date }}
-    </v-card-subtitle>
+    <router-link class="text-decoration-none" :to="{ name: 'UserDetail', params: { id: userProp.login } }">
+      <v-img :src="userProp.avatar_url"></v-img>
+      <v-card-title class="justify-center black--text" v-if="userProp.name">
+        Nome: {{ userProp.name }}
+      </v-card-title>
+      <v-card-title class="justify-center black--text" v-if="userProp.login">
+        Usuário: {{ userProp.login }}
+      </v-card-title>
+      <v-card-subtitle class="text-center black--text" v-if="userProp.name">
+        Criado em: {{ userProp.created_at | date }}
+      </v-card-subtitle>
+    </router-link>
 
     <v-card-actions v-if="showCardActions" class="primary pa-0">
       <v-container fluid>
