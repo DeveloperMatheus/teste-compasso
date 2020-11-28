@@ -58,7 +58,7 @@
 
         <v-row v-if="user" justify="center">
           <v-col class="col-12 col-md-5 col-lg-3">
-            <UserCard :user="this.user" />
+            <UserCard :userProp="user" />
           </v-col>
         </v-row>
       </v-container>
@@ -69,7 +69,7 @@
 <script>
 // @ is an alias to /src
 import UserCard from "@/components/UserCard.vue";
-import usersService from "@/services/users/index";
+import userService from "@/services/users/index";
 
 export default {
   name: "Home",
@@ -85,10 +85,10 @@ export default {
   },
   methods: {
     async getUserByUsername() {
-      this.resetSearchedUser();
+      this.resetUserResult();
       this.isLoading = true;
       try {
-        const { data } = await usersService.getUser(this.username);
+        const { data } = await userService.getUser(this.username);
         console.log(data);
         if (data) {
           this.user = data;
@@ -100,7 +100,7 @@ export default {
         this.isLoading = false;
       }
     },
-    resetSearchedUser() {
+    resetUserResult() {
       this.user = null;
     }
   },
