@@ -11,9 +11,15 @@
       ></v-progress-circular>
     </div>
 
-    <v-row v-if="user" justify="center">
+    <v-row v-if="user && !isLoading" justify="center">
       <v-col class="col-12 col-md-6 col-lg-3">
-        <UserCard :userProp="user" />
+        <UserCard :userProp="user" :show-card-actions="true" />
+      </v-col>
+    </v-row>
+
+    <v-row v-if="!user && !isLoading" justify="center">
+      <v-col class="col-12 col-md-6 col-lg-3">
+        <h2 class="text-center">Usuário não encontrado :(</h2>
       </v-col>
     </v-row>
   </v-container>
