@@ -21,4 +21,14 @@ export default {
         return Promise.reject(err.response.data);
       });
   },
+  getUserStarredRepos(username) {
+    return axios
+      .get(`/users/${username}/starred`)
+      .then(res => {
+        return Promise.resolve(res);
+      })
+      .catch(err => {
+        return Promise.reject(err.response.data);
+      });
+  },
 };

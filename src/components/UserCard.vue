@@ -34,7 +34,7 @@
               block
               large
               color="orange"
-              class="white--text"
+              class="white--text mt-3 mt-md-0"
             >
               Ver Starred Repos
             </v-btn>

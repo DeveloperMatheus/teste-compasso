@@ -20,7 +20,7 @@
         />
       </v-col>
       <v-col class="col-12 col-md-6">
-        <RepoList mode="userRepos" v-if="repos.length" :repoList="repos" />
+        <RepoList :mode="repoMode" v-if="repos.length" :repoList="repos" />
       </v-col>
     </v-row>
 
@@ -44,6 +44,7 @@ export default {
       isLoading: false,
       user: null,
       id: "",
+      repoMode: "",
       repos: [],
     };
   },
@@ -71,11 +72,15 @@ export default {
     },
     async getOptionFromUserCard(option) {
       this.isLoading = true;
-      console.log(option);
+      this.repoMode = option;
       try {
-        if (option === "userRepos") {
+        if (this.repoMode === "userRepos") {
          const { data } = await userService.getUserRepos(this.id);
          this.repos = data;
+        } else {
+          const { data } = await userService.getUserStarredRepos(this.id);
+          console.log(data);
+          this.repos = data;
         }
       } catch (error) {
         console.log(error);
