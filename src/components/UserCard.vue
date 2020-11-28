@@ -1,7 +1,10 @@
 <template>
   <v-card>
-    <router-link class="text-decoration-none" :to="{ name: 'UserDetail', params: { id: userProp.login } }">
-      <v-img :src="userProp.avatar_url"></v-img>
+    <router-link
+      class="text-decoration-none"
+      :to="{ name: 'UserDetail', params: { id: userProp.login } }"
+    >
+      <v-img class="rounded-t" :src="userProp.avatar_url"></v-img>
       <v-card-title class="justify-center black--text" v-if="userProp.name">
         Nome: {{ userProp.name }}
       </v-card-title>
@@ -17,10 +20,22 @@
       <v-container fluid>
         <v-row>
           <v-col class="col-12 col-md-6 py-0">
-            <v-btn block large color="success">Ver Repos</v-btn>
+            <v-btn
+              @click="$emit('user-repo-mode', 'userRepos')"
+              block
+              large
+              color="success"
+              >Ver Repos</v-btn
+            >
           </v-col>
           <v-col class="col-12 col-md-6 py-0">
-            <v-btn block large color="orange" class="white--text">
+            <v-btn
+              @click="$emit('user-repo-mode', 'userStarredRepos')"
+              block
+              large
+              color="orange"
+              class="white--text"
+            >
               Ver Starred Repos
             </v-btn>
           </v-col>
