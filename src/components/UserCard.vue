@@ -25,7 +25,7 @@
               block
               large
               color="success"
-              >Ver Repos</v-btn
+              >Ver Repositórios</v-btn
             >
           </v-col>
           <v-col class="col-12 col-md-6 py-0">

@@ -11,24 +11,36 @@
       ></v-progress-circular>
     </div>
 
-    <v-row v-if="user && !isLoading" justify="space-around">
-      <v-col class="col-12 col-md-6 col-lg-3">
-        <UserCard
-          @user-repo-mode="getOptionFromUserCard"
-          :userProp="user"
-          :show-card-actions="true"
-        />
-      </v-col>
-      <v-col class="col-12 col-md-6">
-        <RepoList :mode="repoMode" v-if="repos.length" :repoList="repos" />
-      </v-col>
-    </v-row>
+    <div v-if="!isLoading">
 
-    <v-row v-if="!user && !isLoading" justify="center">
-      <v-col class="col-12 col-md-6 col-lg-3">
-        <h2 class="text-center">Usuário não encontrado :(</h2>
-      </v-col>
-    </v-row>
+      <v-row v-if="user" justify="center">
+        <v-col class="col-12 col-md-6 col-lg-3">
+          <UserCard
+            @user-repo-mode="getOptionFromUserCard"
+            :userProp="user"
+            :show-card-actions="true"
+          />
+        </v-col>
+        <v-col class="col-12 col-md-6 col-lg-4">
+          <RepoList
+            :mode="repoMode"
+            v-if="repos.length > 0"
+            :repoList="repos"
+          />
+
+          <h2 class="text-center" v-if="repos.length === 0">
+            Não encontramos nenhum repositório :(
+          </h2>
+        </v-col>
+      </v-row>
+
+      <v-row v-if="!user" justify="center">
+        <v-col class="col-12 col-md-6 col-lg-3">
+          <h2 class="text-center">Usuário não encontrado :(</h2>
+        </v-col>
+      </v-row>
+
+    </div>
   </v-container>
 </template>
 
@@ -57,6 +69,7 @@ export default {
   },
   mounted() {
     this.getUserProfile();
+    this.getOptionFromUserCard("userRepos");
   },
   methods: {
     async getUserProfile() {
@@ -75,11 +88,10 @@ export default {
       this.repoMode = option;
       try {
         if (this.repoMode === "userRepos") {
-         const { data } = await userService.getUserRepos(this.id);
-         this.repos = data;
+          const { data } = await userService.getUserRepos(this.id);
+          this.repos = data;
         } else {
           const { data } = await userService.getUserStarredRepos(this.id);
-          console.log(data);
           this.repos = data;
         }
       } catch (error) {
