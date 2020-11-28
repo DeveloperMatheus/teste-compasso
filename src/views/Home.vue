@@ -30,6 +30,7 @@
               label="Username"
               outlined
               hide-details="false"
+              @keyup.enter="getUserByUsername"
             ></v-text-field>
           </v-col>
           <v-col class="col-12 col-lg-1">
@@ -84,6 +85,7 @@ export default {
   },
   methods: {
     async getUserByUsername() {
+      this.resetSearchedUser();
       this.isLoading = true;
       try {
         const { data } = await usersService.getUser(this.username);
@@ -98,6 +100,9 @@ export default {
         this.isLoading = false;
       }
     },
+    resetSearchedUser() {
+      this.user = null;
+    }
   },
 };
 </script>
