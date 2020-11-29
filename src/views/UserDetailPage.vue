@@ -12,7 +12,6 @@
     </div>
 
     <div v-if="!isLoading">
-
       <v-row v-if="user" justify="center">
         <v-col class="col-12 col-md-6 col-lg-3">
           <UserCard
@@ -28,7 +27,7 @@
             :repoList="repos"
           />
 
-          <h2 class="text-center" v-if="repos.length === 0">
+          <h2 class="text-center" v-if="repoMode !== '' && repos.length === 0">
             Não encontramos nenhum repositório :(
           </h2>
         </v-col>
@@ -39,7 +38,6 @@
           <h2 class="text-center">Usuário não encontrado :(</h2>
         </v-col>
       </v-row>
-
     </div>
   </v-container>
 </template>
@@ -69,7 +67,7 @@ export default {
   },
   mounted() {
     this.getUserProfile();
-    this.getOptionFromUserCard("userRepos");
+    // this.getOptionFromUserCard("userRepos");
   },
   methods: {
     async getUserProfile() {
