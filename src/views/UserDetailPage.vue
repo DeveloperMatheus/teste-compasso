@@ -11,16 +11,18 @@
       ></v-progress-circular>
     </div>
 
-    <div v-if="!isLoading">
-      <v-row v-if="user" justify="center">
-        <v-col class="col-12 col-md-6 col-lg-3">
+    <v-row v-if="user" justify="center">
+      <v-col class="col-12 col-md-6 col-lg-3">
+        <div v-if="!isLoading">
           <UserCard
             @user-repo-mode="getOptionFromUserCard"
             :userProp="user"
             :show-card-actions="true"
           />
-        </v-col>
-        <v-col class="col-12 col-md-6 col-lg-4 col-xl-3">
+        </div>
+      </v-col>
+      <v-col class="col-12 col-md-6 col-lg-4 col-xl-3">
+        <div v-if="!isLoadingRepos">
           <RepoList
             :mode="repoMode"
             v-if="repos.length > 0"
@@ -30,15 +32,15 @@
           <h2 class="text-center" v-if="repoMode !== '' && repos.length === 0">
             Não encontramos nenhum repositório :(
           </h2>
-        </v-col>
-      </v-row>
+        </div>
+      </v-col>
+    </v-row>
 
-      <v-row v-if="!user" justify="center">
-        <v-col class="col-12 col-md-6 col-lg-3">
-          <h2 class="text-center">Usuário não encontrado :(</h2>
-        </v-col>
-      </v-row>
-    </div>
+    <v-row v-if="!user" justify="center">
+      <v-col class="col-12 col-md-6 col-lg-3">
+        <h2 class="text-center">Usuário não encontrado :(</h2>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -52,6 +54,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      isLoadingRepos: false,
       user: null,
       id: "",
       repoMode: "",
@@ -82,7 +85,7 @@ export default {
       }
     },
     async getOptionFromUserCard(option) {
-      this.isLoading = true;
+      this.isLoadingRepos = true;
       this.repoMode = option;
       try {
         if (this.repoMode === "userRepos") {
@@ -95,7 +98,7 @@ export default {
       } catch (error) {
         console.log(error);
       } finally {
-        this.isLoading = false;
+        this.isLoadingRepos = false;
       }
     },
   },

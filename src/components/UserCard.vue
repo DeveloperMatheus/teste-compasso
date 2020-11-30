@@ -21,20 +21,30 @@
         <v-row>
           <v-col class="col-12 col-md-6 py-0">
             <v-btn
-              @click="$emit('user-repo-mode', 'userRepos')"
+              @click="emitValue('userRepos')"
               block
               large
-              color="success"
-              >Ver Repositórios</v-btn
+              class="white--text"
+              :class="
+                mode === 'userRepos'
+                  ? 'action-button--selected'
+                  : 'action-button'
+              "
             >
+              Ver Repositórios
+            </v-btn>
           </v-col>
           <v-col class="col-12 col-md-6 py-0">
             <v-btn
-              @click="$emit('user-repo-mode', 'userStarredRepos')"
+              @click="emitValue('userStarredRepos')"
               block
               large
-              color="orange"
               class="white--text mt-3 mt-md-0"
+              :class="
+                mode === 'userStarredRepos'
+                  ? 'action-button--selected'
+                  : 'action-button'
+              "
             >
               Ver Starred Repos
             </v-btn>
@@ -48,7 +58,11 @@
 <script>
 export default {
   name: "UserCard",
-
+  data() {
+    return {
+      mode: "",
+    };
+  },
   props: {
     userProp: Object,
 
@@ -57,5 +71,21 @@ export default {
       default: false,
     },
   },
+  methods: {
+    emitValue(mode) {
+      this.mode = mode;
+      console.log(this.mode);
+      this.$emit("user-repo-mode", mode);
+    },
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+.action-button {
+  background-color: gray !important;
+  &--selected {
+    background-color: #00b300 !important;
+  }
+}
+</style>
