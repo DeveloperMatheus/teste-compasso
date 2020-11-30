@@ -7,26 +7,23 @@
           : "Repositórios mais vistos pelo usuário"
       }}
     </h2>
-    <template v-for="(repo, i) in repoList">
-      <v-divider :key="i"></v-divider>
-      <v-list-item :href="repo.html_url" :key="repo.id" target="_blank">
-        <v-list-item-avatar v-if="mode === 'userStarredRepos'">
-          <v-img :src="repo.owner.avatar_url"></v-img>
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title v-text="repo.full_name"></v-list-item-title>
-          <v-list-item-subtitle>
-            Criado em {{ repo.created_at | date }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
+    <template v-for="repo in repoList">
+      <v-card class="mt-3" :href="repo.html_url" :key="repo.id" target="_blank">
+        <v-card-title class="justify-center">
+          <v-avatar v-if="mode === 'userStarredRepos'">
+            <img :src="repo.owner.avatar_url" alt="User Photo" />
+          </v-avatar>
+          <p class="ma-0 ml-3" v-text="repo.full_name"></p>
+        </v-card-title>
+        <v-card-subtitle class="mt-1 text-center">
+          Criado em {{ repo.created_at | date }}
+        </v-card-subtitle>
 
-        <v-list-item-action>
-          <p class="ma-0">Issues: {{repo.open_issues_count}}</p>
-        </v-list-item-action>
-        <v-list-item-action>
-          <p class="ma-0">Forks: {{repo.forks_count}}</p>
-        </v-list-item-action>
-      </v-list-item>
+        <v-card-actions class="justify-space-between px-5">
+          <p class="ma-0">Issues: {{ repo.open_issues_count }}</p>
+          <p class="ma-0">Forks: {{ repo.forks_count }}</p>
+        </v-card-actions>
+      </v-card>
     </template>
   </v-list>
 </template>

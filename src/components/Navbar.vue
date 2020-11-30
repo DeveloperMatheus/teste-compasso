@@ -1,7 +1,13 @@
 <template>
   <v-app-bar app color="primary" dark>
     <div class="d-flex align-center">
-      Teste Compasso
+      Compasso UOL
+      <v-img
+        max-width="40"
+        class="d-inline-block ml-md-3"
+        alt="Octocat logo"
+        src="../assets/logo-uol-navbar.png"
+      />
     </div>
 
     <v-spacer></v-spacer>

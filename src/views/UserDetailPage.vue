@@ -20,7 +20,7 @@
             :show-card-actions="true"
           />
         </v-col>
-        <v-col class="col-12 col-md-6 col-lg-4">
+        <v-col class="col-12 col-md-6 col-lg-4 col-xl-3">
           <RepoList
             :mode="repoMode"
             v-if="repos.length > 0"
